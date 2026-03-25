@@ -113,6 +113,12 @@ SELECT
       + ((Actual_Units - Expected_Units_At_Budget_Mix) * Budget_Price)
         AS DECIMAL(18,2)
     ) AS PVM_Check
-FROM cte_mix
+FROM cte_mix;
 
 ```
+
+<img width="1812" height="565" alt="image" src="https://github.com/user-attachments/assets/95d2b22e-8d7d-4ccb-9730-52f5f4c2d6b1" />
+
+## Connect SQL Server to Power BI 
+
+<img width="1918" height="994" alt="image" src="https://github.com/user-attachments/assets/0f8f0615-743d-4a86-9b5c-cca03b6cdc81" />
