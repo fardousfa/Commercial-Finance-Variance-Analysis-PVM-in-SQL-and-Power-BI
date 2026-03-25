@@ -122,3 +122,31 @@ FROM cte_mix;
 ## Connect SQL Server to Power BI 
 
 <img width="1918" height="994" alt="image" src="https://github.com/user-attachments/assets/0f8f0615-743d-4a86-9b5c-cca03b6cdc81" />
+
+
+## Insight
+
+January revenue came in below budget, driven mainly by a volume shortfall. Pricing was slightly ahead of plan and helped offset part of the miss, while mix had only a limited overall impact.
+Overall, this suggests the gap is more demand / sales-execution related than a pricing issue at this point.
+
+## Recommendation
+
+The near-term priority should be to recover volume rather than respond with pricing action. Current price realisation looks broadly healthy, so immediate discounting would likely address the wrong issue and could create unnecessary margin pressure.
+Focus should instead be on pipeline quality, conversion, deal timing, and any signs of competitive pressure.
+
+## Actions
+
+**Commercial**
+
+Review whether pipeline build is tracking below plan.
+Check if conversion rates are weaker than expected at any stage of the funnel.
+Assess whether competitors are taking share in key products or segments.
+Confirm whether deals have slipped into later months rather than being fully lost.
+
+**Finance**
+
+Reforecast revenue and volume assumptions if the shortfall continues for three consecutive months.
+Investigate the root cause in more detail, including churn, run-rate, and order trends.
+Update Q1 and full-year assumptions based on latest trading evidence.
+Quantify the EBITDA impact of the volume shortfall.
+Track whether this is a one-off timing issue or the start of a broader trend.
