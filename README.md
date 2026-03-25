@@ -119,12 +119,10 @@ FROM cte_mix;
 
 ```
 
-<img width="1918" height="978" alt="image" src="https://github.com/user-attachments/assets/1aa5725f-a1ea-4ecb-a39d-64427415f81d" />
-
-
 ## Connect SQL Server to Power BI 
 
-<img width="1914" height="913" alt="image" src="https://github.com/user-attachments/assets/79b9c39d-bdfb-4e0d-9af5-17d9f0c96ea9" />
+<img width="1918" height="978" alt="image" src="https://github.com/user-attachments/assets/1aa5725f-a1ea-4ecb-a39d-64427415f81d" />
+
 
 
 **-In Excel**
