@@ -1,2 +1,118 @@
 # Commercial-Finance-Variance-Analysis-PVM-in-SQL-and-Power-BI
 This project uses SQL Server to prepare and structure Price-Volume-Mix revenue variance data, then connects the dataset to Power BI to build an interactive dashboard for Budget vs Actual analysis, KPI monitoring, monthly trends, and product-level insights.
+
+```sql
+WITH cte_product_summary AS(
+SELECT 
+	m.MonthKey,
+	m.MonthStartDate,
+	s.ScenarioID,
+	p.ProductID,
+	p.ProductName,
+	SUM(s.netrevenue) as total_revenue,
+	SUM(s.units) as total_units,
+	MAX(p.standardcost) as product_standard_cost,
+	MAX(p.ListPrice) as sales_price
+FROM sales.FactSalesScenarioMonthly s
+JOIN MasterData.Products p
+  ON p.ProductID = s.ProductID
+JOIN MasterData.Months m
+  ON m.MonthKey = s.MonthKey
+WHERE s.ScenarioID IN (1,2) and MonthStartDate >='2025-01-01' and ProductFamily <> 'Services'
+GROUP BY 	m.MonthKey,
+        	m.MonthStartDate,
+        	s.ScenarioID,
+        	p.ProductID,
+        	p.ProductName
+)
+,
+cte_rev_unit AS(
+SELECT 
+	MonthStartDate,
+	ProductID,
+	ProductName,
+	product_standard_cost,
+	sales_price,
+	SUM(case WHEN scenarioID = 1 THEN total_revenue ELSE 0 END) as Actual_revenue,
+	SUM(case WHEN scenarioID = 2 THEN total_revenue ELSE 0 END) as Budget_revenue,
+	SUM(case WHEN scenarioID = 1 THEN total_units ELSE 0 END) as Actual_Units,
+	SUM(case WHEN scenarioID = 2 THEN total_units ELSE 0 END) as Budget_Units
+FROM cte_product_summary
+GROUP BY 	MonthStartDate,
+			ProductID,
+			ProductName,
+      product_standard_cost,
+	    sales_price
+	)
+	,
+	cte_price AS(
+
+	SELECT
+  	MonthStartDate,
+  	ProductID,
+  	ProductName,
+  	actual_revenue,
+  	budget_revenue,
+  	Actual_Units,
+  	Budget_Units,
+  	CAST(Actual_revenue / NULLIF(Actual_Units, 0) as decimal(18,2)) as actual_price,
+  	CAST(Budget_revenue / NULLIF(Budget_Units, 0) as decimal(18,2)) as budget_price
+	FROM cte_rev_unit
+)
+,
+cte_monthly_total_units AS(
+
+SELECT
+	MonthStartDate,
+	SUM(actual_units) as total_actual_units,
+	SUM(budget_units) as total_budget_units
+FROM cte_price
+GROUP BY
+		MonthStartDate
+	)
+	
+,cte_mix AS(
+
+	SELECT 
+  	p.MonthStartDate,
+  	p.ProductID,
+  	p.ProductName,
+  	p.actual_revenue,
+  	p.budget_revenue,
+  	p.Actual_Units,
+  	p.Budget_Units,
+  	p.actual_price,
+  	p.budget_price,
+  	m.total_actual_units,
+  	m.total_budget_units,
+    CAST(p.Budget_Units *1.0 / NULLIF(m.Total_Budget_Units, 0) AS DECIMAL(18,6)) AS Budget_Mix_Pct,
+    CAST(m.Total_Actual_Units *1.0 * (p.Budget_Units *1.0 / NULLIF(m.Total_Budget_Units, 0)) AS DECIMAL(18,4)) AS           Expected_Units_At_Budget_Mix
+	FROM cte_price p
+	LEFT JOIN cte_monthly_total_units m
+	  ON p.MonthStartDate = m.MonthStartDate
+)
+
+SELECT
+    MonthStartDate,
+    ProductID,
+    ProductName,
+    Actual_Revenue,
+    Budget_Revenue,
+    Actual_Revenue - Budget_Revenue AS Revenue_Variance,
+    Actual_Units,
+    Budget_Units,
+    Actual_Price,
+    Budget_Price,
+    Expected_Units_At_Budget_Mix,
+    CAST((Actual_Price - Budget_Price) * Actual_Units AS DECIMAL(18,2)) AS Price_Variance,
+    CAST((Expected_Units_At_Budget_Mix - Budget_Units) * Budget_Price AS DECIMAL(18,2)) AS Volume_Variance,
+    CAST((Actual_Units - Expected_Units_At_Budget_Mix) * Budget_Price AS DECIMAL(18,2)) AS Mix_Variance,
+    CAST(
+        ((Actual_Price - Budget_Price) * Actual_Units)
+      + ((Expected_Units_At_Budget_Mix - Budget_Units) * Budget_Price)
+      + ((Actual_Units - Expected_Units_At_Budget_Mix) * Budget_Price)
+        AS DECIMAL(18,2)
+    ) AS PVM_Check
+FROM cte_mix
+
+```
