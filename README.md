@@ -121,8 +121,10 @@ FROM cte_mix;
 
 ## Connect SQL Server to Power BI 
 
-<img width="1918" height="994" alt="image" src="https://github.com/user-attachments/assets/0f8f0615-743d-4a86-9b5c-cca03b6cdc81" />
+<img width="1914" height="913" alt="image" src="https://github.com/user-attachments/assets/79b9c39d-bdfb-4e0d-9af5-17d9f0c96ea9" />
 
+
+**-In Excel**
 <img width="1117" height="493" alt="image" src="https://github.com/user-attachments/assets/a08f375a-982d-4d6f-b10b-b881ef60ff38" />
 
 
