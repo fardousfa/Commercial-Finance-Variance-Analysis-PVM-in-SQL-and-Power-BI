@@ -123,6 +123,10 @@ FROM cte_mix;
 
 <img width="1918" height="994" alt="image" src="https://github.com/user-attachments/assets/0f8f0615-743d-4a86-9b5c-cca03b6cdc81" />
 
+<img width="1117" height="493" alt="image" src="https://github.com/user-attachments/assets/a08f375a-982d-4d6f-b10b-b881ef60ff38" />
+
+
+
 
 ## Insight
 
