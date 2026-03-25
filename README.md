@@ -159,3 +159,13 @@ Investigate the root cause in more detail, including churn, run-rate, and order 
 Update Q1 and full-year assumptions based on latest trading evidence.
 Quantify the EBITDA impact of the volume shortfall.
 Track whether this is a one-off timing issue or the start of a broader trend.
+
+## Report Improvement Plan
+
+This solution can be deployed in multiple ways based on business needs, scalability, and sharing requirements.
+
+The preferred approach is to design the data model and build the report in Power BI Desktop, then publish it to the Power BI Service for enterprise distribution. This enables automated refresh scheduling, centralized report access, and stronger governance. Where the source database is hosted locally, an On-Premises Data Gateway is required to support refresh functionality. After deployment, user access and security can be controlled through Azure AD, Microsoft Entra ID, or security groups.
+
+A secondary option is to connect SQL Server data to Excel using Power Query. This allows the analyst to perform data transformation in Power Query, build the model in Power Pivot, and create charts or graphs for reporting. While this method is suitable for offline analysis or ad hoc reporting, it does not offer the same level of collaboration, scalability, or controlled sharing as Power BI.
+
+For this project, I performed the core analysis in SQL Server, connected the processed data to Power BI, and translated the outputs into business impact, key insights, and action-oriented recommendations. To strengthen the long-term value of the solution, I have also included an improvement plan outlining the next steps for optimization and future development.
